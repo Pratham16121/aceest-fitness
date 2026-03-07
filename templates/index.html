@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ACEest Fitness and Gym</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #1a1a1a;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+    .header {
+      background: #d4af37;
+      color: #000;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .header-title { font-size: 24px; font-weight: bold; margin: 0; }
+    .nav a { color: #000; text-decoration: none; font-weight: bold; margin-left: 16px; }
+    .nav a:hover { text-decoration: underline; }
+    .main {
+      display: flex;
+      gap: 20px;
+      padding: 20px;
+      min-height: calc(100vh - 80px);
+    }
+    .left-panel {
+      flex: 0 0 280px;
+      background: #1a1a1a;
+      border: 1px solid #d4af37;
+      border-radius: 8px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+    .left-panel label {
+      display: block;
+      margin-bottom: 8px;
+      color: #d4af37;
+      font-weight: bold;
+    }
+    .left-panel select {
+      width: 100%;
+      padding: 10px;
+      background: #333;
+      color: #fff;
+      border: 1px solid #555;
+      border-radius: 4px;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    .metrics {
+      margin-top: auto;
+      background: #333;
+      color: #ddd;
+      padding: 15px;
+      font-family: Courier, monospace;
+      font-size: 12px;
+      white-space: pre-line;
+      border-radius: 4px;
+    }
+    .right-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .card {
+      flex: 1;
+      background: #1a1a1a;
+      border: 1px solid #d4af37;
+      border-radius: 8px;
+      padding: 20px;
+      min-height: 200px;
+    }
+    .card h2 {
+      margin: 0 0 15px 0;
+      color: #d4af37;
+      font-size: 16px;
+    }
+    .card-content {
+      color: #fff;
+      white-space: pre-line;
+      line-height: 1.6;
+    }
+    .placeholder {
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <h1 class="header-title">ACEest FUNCTIONAL FITNESS</h1>
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="/test-results">Test Results</a>
+    </nav>
+  </header>
+
+  <div class="main">
+    <aside class="left-panel">
+      <label for="program">Select Program:</label>
+      <select id="program" name="program">
+        <option value="">Select a profile to view</option>
+        {% for name in programs %}
+        <option value="{{ name }}">{{ name }}</option>
+        {% endfor %}
+      </select>
+      <div class="metrics">CAPACITY: 150 Users
+AREA: 10,000 sq ft
+BREAK-EVEN: 250 Members</div>
+    </aside>
+
+    <div class="right-panel">
+      <section class="card">
+        <h2>Weekly Workout Chart</h2>
+        <div id="workout" class="card-content placeholder">Select a profile to view workout</div>
+      </section>
+      <section class="card">
+        <h2>Daily Nutrition Plan (Tamil Nadu Context)</h2>
+        <div id="diet" class="card-content placeholder">Select a profile to view diet</div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const programs = {{ programs | tojson }};
+    const programSelect = document.getElementById('program');
+    const workoutEl = document.getElementById('workout');
+    const dietEl = document.getElementById('diet');
+
+    function updateDisplay() {
+      const name = programSelect.value;
+      if (!name || !programs[name]) {
+        workoutEl.textContent = 'Select a profile to view workout';
+        dietEl.textContent = 'Select a profile to view diet';
+        workoutEl.className = 'card-content placeholder';
+        dietEl.className = 'card-content placeholder';
+        return;
+      }
+      const data = programs[name];
+      workoutEl.textContent = data.workout;
+      dietEl.textContent = data.diet;
+      workoutEl.style.color = data.color;
+      dietEl.style.color = data.color;
+      workoutEl.className = 'card-content';
+      dietEl.className = 'card-content';
+    }
+
+    programSelect.addEventListener('change', updateDisplay);
+  </script>
+</body>
+</html>

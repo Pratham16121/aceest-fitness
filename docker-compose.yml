@@ -1,0 +1,13 @@
+# Local run with Docker Compose
+# GUI: use host display (Linux) or leave for headless
+services:
+  aceest-fitness:
+    build: .
+    image: aceest-fitness:local
+    # For GUI on Linux with X11:
+    # environment:
+    #   - DISPLAY=${DISPLAY}
+    # volumes:
+    #   - /tmp/.X11-unix:/tmp/.X11-unix
+    # Run headless with xvfb (no window):
+    command: ["xvfb-run", "-a", "python", "accest fitness.py"]

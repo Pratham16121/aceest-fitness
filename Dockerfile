@@ -13,8 +13,8 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY "accest fitness.py" .
+COPY "accest_fitness.py" .
 
 # Default: run the app (needs display or xvfb-run)
 # For headless CI: xvfb-run python "accest fitness.py" --help or similar
-CMD ["python", "accest fitness.py"]
+CMD ["python", "accest_fitness.py"]

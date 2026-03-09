@@ -10,4 +10,4 @@ services:
     # volumes:
     #   - /tmp/.X11-unix:/tmp/.X11-unix
     # Run headless with xvfb (no window):
-    command: ["xvfb-run", "-a", "python", "accest fitness.py"]
+    command: ["xvfb-run", "-a", "python", "accest_fitness.py"]

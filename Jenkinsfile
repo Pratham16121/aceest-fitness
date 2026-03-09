@@ -21,13 +21,7 @@ pipeline {
 
         stage('Docker Login') {
             steps {
-                withCredentials([usernamePassword(
-                    credentialsId: 'dockerhub-credentials',
-                    usernameVariable: 'DOCKER_USER',
-                    passwordVariable: 'DOCKER_PASS'
-                )]) {
-                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
-                }
+                sh 'echo dckr_pat_gmlv5MdeqzIIJh9xfOqTaNDk92s | docker login -u prathamgoel16 --password-stdin'
             }
         }
 
@@ -40,6 +34,5 @@ pipeline {
                 """
             }
         }
-
     }
 }

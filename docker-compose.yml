@@ -3,7 +3,8 @@
 services:
   aceest-fitness:
     build: .
-    image: aceest-fitness:local
+    image: prathamgoel16/aceest:latest
+    #image: aceest-fitness:local
     # For GUI on Linux with X11:
     # environment:
     #   - DISPLAY=${DISPLAY}
